@@ -42,6 +42,7 @@ public:
 
     LuaEventNode *getNode();
 
+
     int getTouchMode();
 
     int getTouchId();

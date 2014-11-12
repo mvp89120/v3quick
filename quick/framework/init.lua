@@ -22,6 +22,9 @@ THE SOFTWARE.
 
 ]]
 
+--------------------------------
+-- @module init
+
 --[[--
 
 quick framework 初始化
@@ -125,10 +128,11 @@ audio      = require(cc.PACKAGE_NAME .. ".audio")
 network    = require(cc.PACKAGE_NAME .. ".network")
 crypto     = require(cc.PACKAGE_NAME .. ".crypto")
 
-if cc.bPlugin_ then
-    require("cocos.cocos2d.json")
+local cjson = require(cc.PACKAGE_NAME .. ".json")
+if cjson then
+    json = cjson
 else
-json       = require(cc.PACKAGE_NAME .. ".json")
+    require("cocos.cocos2d.json")
 end
 
 if device.platform == "android" then

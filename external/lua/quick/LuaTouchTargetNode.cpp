@@ -52,6 +52,8 @@ LuaEventNode *LuaTouchTargetNode::getNode()
     return  _node;
 }
 
+
+
 int LuaTouchTargetNode::getTouchMode()
 {
     return _touchMode;

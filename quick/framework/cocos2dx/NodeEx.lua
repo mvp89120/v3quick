@@ -277,6 +277,28 @@ function Node:addNodeEventListener( evt, hdl, tag, priority )
     return self._nextScriptEventHandleIndex_
 end
 
+function Node:removeNodeEventListener(listener)
+    if not flagNodeTouchInCocos then
+        local func = tolua.getcfunction(self, "removeNodeEventListener")
+        if func then return func(self, listener) end
+        return
+    end
+
+    if not self._scriptEventListeners_ then return end
+
+    for evt,liss in pairs(self._scriptEventListeners_) do
+        for i,v in ipairs(liss) do
+            if v.index_==listener then
+                table.remove(liss, i)
+                if #liss==0 then
+                    self.removeNodeEventListenersByEvent(evt)
+                end
+                return
+            end
+        end
+    end
+end
+
 function Node:removeNodeEventListenersByEvent( evt )
     if not flagNodeTouchInCocos then
         tolua.getcfunction(self, "removeNodeEventListenersByEvent")(self, evt)

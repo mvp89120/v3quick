@@ -274,10 +274,18 @@ int LuaStack::executeString(const char *codes)
 
 int LuaStack::executeScriptFile(const char* filename)
 {
-    std::string code("require \"");
-    code.append(filename);
-    code.append("\"");
-    return executeString(code.c_str());
+    CCAssert(filename, "CCLuaStack::executeScriptFile() - invalid filename");
+
+    FileUtils *utils = FileUtils::getInstance();
+    std::string fullPath = utils->fullPathForFilename(filename);
+    Data data = utils->getDataFromFile(fullPath);
+    int rn = 0;
+    if (!data.isNull()) {
+        if (luaLoadBuffer(_state, (const char*)data.getBytes(), (int)data.getSize(), fullPath.c_str()) == 0) {
+            rn = executeFunction(0);
+        }
+    }
+    return rn;
 }
 
 int LuaStack::executeGlobalFunction(const char* functionName)
@@ -732,6 +740,28 @@ void LuaStack::cleanupXXTEAKeyAndSign()
     }
 }
 
+const char* LuaStack::getXXTEAKey(int *len)
+{
+    if (_xxteaEnabled && _xxteaKey) {
+        if (len) {
+            *len = _xxteaKeyLen;
+        }
+        return _xxteaKey;
+    }
+    return nullptr;
+}
+
+const char* LuaStack::getXXTEASign(int *len)
+{
+    if (_xxteaEnabled && _xxteaSign) {
+        if (len) {
+            *len = _xxteaSignLen;
+        }
+        return _xxteaSign;
+    }
+    return nullptr;
+}
+
 int LuaStack::loadChunksFromZIP(const char *zipFilePath)
 {
     pushString(zipFilePath);
@@ -773,7 +803,7 @@ int LuaStack::luaLoadChunksFromZIP(lua_State *L)
                                    (unsigned char*)stack->_xxteaKey,
                                    (xxtea_long)stack->_xxteaKeyLen,
                                    &len);
-            delete []zipFileData;
+            free(zipFileData);
             zipFileData = nullptr;
             zip = ZipFile::createWithBuffer(buffer, len);
         } else {
@@ -797,7 +827,7 @@ int LuaStack::luaLoadChunksFromZIP(lua_State *L)
                         lua_setfield(L, -2, filename.c_str());
                         ++count;
                     }
-                    delete []zbuffer;
+                    free(zbuffer);
                 }
                 filename = zip->getNextFilename();
             }
@@ -812,7 +842,7 @@ int LuaStack::luaLoadChunksFromZIP(lua_State *L)
         }
         
         if (zipFileData) {
-            delete []zipFileData;
+            free(zipFileData);
         }
         
         if (buffer) {

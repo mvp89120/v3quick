@@ -80,7 +80,6 @@ std::string getCurAppName(void)
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     [self updateProjectFromCommandLineArgs:&_project];
-    _project.setShowConsole(true);
     [self startup];
 }
 
@@ -138,6 +137,8 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
 
 - (void) updateProjectFromCommandLineArgs:(ProjectConfig*)config
 {
+    config->setShowConsole(true);
+    config->setDebuggerType(kCCLuaDebuggerCodeIDE);
     NSArray *nsargs = [[NSProcessInfo processInfo] arguments];
     long n = [nsargs count];
     if (n >= 2)
@@ -151,10 +152,10 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
         config->parseCommandLine(args);
     }
     
-    if (config->getProjectDir().length() == 0)
-    {
-        config->resetToWelcome();
-    }
+//    if (config->getProjectDir().length() == 0)
+//    {
+//        config->resetToWelcome();
+//    }
 }
 
 - (void) startup
@@ -175,11 +176,9 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
     }
     g_nsAppDelegate =self;
     AppDelegate app;
-    NSArray *nsargs = [[NSProcessInfo processInfo] arguments];
-    long n = [nsargs count];
-    if (n > 3)
+    if (_project.getDebuggerType()==kCCLuaDebuggerNone)
     {
-        app.setLaunchMode(1);
+        app.setLaunchMode(0);
     }
     Application::getInstance()->run();
     // After run, application needs to be terminated immediately.

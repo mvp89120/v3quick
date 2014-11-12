@@ -1,5 +1,6 @@
 <?php
 
+ini_set('memory_limit','256M');
 require_once(__DIR__ . '/quick/ProjectCreator.php');
 
 $options = array(
@@ -18,11 +19,6 @@ $options = array(
 
 $extrawork = array(
     "FilesNeedModify" => array(
-            array(
-                "/external/protobuf-lite/Android.mk",
-                'LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..',
-                'LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/.. $(LOCAL_PATH)/src',
-                ),
             array(
                 "/cocos/platform/win32/CCFileUtils-win32.cpp",
                 's_resourcePath.append("/");',
