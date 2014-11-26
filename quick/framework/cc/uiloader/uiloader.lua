@@ -23,6 +23,9 @@ THE SOFTWARE.
 
 ]]
 
+--------------------------------
+-- @module uiloader
+
 --[[--
 
 初始化 cc.uiloader,并提供对外统一接口
@@ -36,19 +39,28 @@ local uiloader = class("uiloader")
 local CCSUILoader = import(".CCSUILoader")
 local CCSSceneLoader = import(".CCSSceneLoader")
 
+-- start --
+
+--------------------------------
+-- 初始化 cc.uiloader,并提供对外统一接口
+-- @function [parent=#uiloader] new
+
+-- end --
+
 function uiloader:ctor()
 end
 
---[[--
+-- start --
 
-解析json文件
+--------------------------------
+-- 解析json文件
+-- @function [parent=#uiloader] load
+-- @param string jsonFile 要解析的json文件
+-- @param table params 解析参数
+-- @return node#node  解析后的布局
 
-@param string jsonFile 要解析的json文件
-@param table params 解析参数
+-- end --
 
-@return node 解析后的布局
-
-]]
 function uiloader:load(jsonFile, params)
 	local json = self:loadFile_(jsonFile)
 	if not json then
@@ -69,16 +81,17 @@ function uiloader:load(jsonFile, params)
 	return node, w, h
 end
 
---[[--
+-- start --
 
-按tag查找布局中的结点
+--------------------------------
+-- 按tag查找布局中的结点
+-- @function [parent=#uiloader] seekNodeByTag
+-- @param node parent 要查找布局的结点
+-- @param number tag 要查找的tag
+-- @return node#node 
 
-@param node parent 要查找布局的结点
-@param number tag 要查找的tag
+-- end --
 
-@return node
-
-]]
 function uiloader:seekNodeByTag(parent, tag)
 	if not parent then
 		return
@@ -112,16 +125,17 @@ function uiloader:seekNodeByTag(parent, tag)
 	return
 end
 
---[[--
+-- start --
 
-按name查找布局中的结点
+--------------------------------
+-- 按name查找布局中的结点
+-- @function [parent=#uiloader] seekNodeByName
+-- @param node parent 要查找布局的结点
+-- @param string name 要查找的name
+-- @return node#node 
 
-@param node parent 要查找布局的结点
-@param string name 要查找的name
+-- end --
 
-@return node
-
-]]
 function uiloader:seekNodeByName(parent, name)
 	if not parent then
 		return
@@ -169,17 +183,18 @@ function uiloader:seekNodeByName(parent, name)
 	return
 end
 
---[[--
+-- start --
 
-按name查找布局中的结点
-与seekNodeByName不同之处在于它是通过node的下子结点表来查询,效率更快
+--------------------------------
+-- 按name查找布局中的结点
+-- 与seekNodeByName不同之处在于它是通过node的下子结点表来查询,效率更快
+-- @function [parent=#uiloader] seekNodeByNameFast
+-- @param node parent 要查找布局的结点
+-- @param string name 要查找的name
+-- @return node#node 
 
-@param node parent 要查找布局的结点
-@param string name 要查找的name
+-- end --
 
-@return node
-
-]]
 function uiloader:seekNodeByNameFast(parent, name)
 	if not parent then
 		return
@@ -209,16 +224,17 @@ function uiloader:seekNodeByNameFast(parent, name)
 	return
 end
 
---[[--
+-- start --
 
-根据路径来查找布局中的结点
+--------------------------------
+-- 根据路径来查找布局中的结点
+-- @function [parent=#uiloader] seekNodeByPath
+-- @param node parent 要查找布局的结点
+-- @param string path 要查找的path
+-- @return node#node 
 
-@param node parent 要查找布局的结点
-@param string path 要查找的path
+-- end --
 
-@return node
-
-]]
 function uiloader:seekNodeByPath(parent, path)
 	if not parent then
 		return
@@ -236,6 +252,17 @@ function uiloader:seekNodeByPath(parent, path)
 	return parent
 end
 
+-- start --
+
+--------------------------------
+-- 查找布局中的组件结点
+-- @function [parent=#uiloader] seekComponents
+-- @param node parent 要查找布局的结点
+-- @param string nodeName 要查找的name
+-- @param number componentIdx 在查找组件在它的直接父结点的位置
+-- @return node#node 
+
+
 --[[--
 
 查找布局中的组件结点
@@ -248,13 +275,9 @@ local hero = cc.uiloader:seekComponents(parentNode, "hero", 1)
 
 ~~~
 
-@param node parent 要查找布局的结点
-@param string nodeName 要查找的name
-@param number componentIdx 在查找组件在它的直接父结点的位置
-
-@return node
-
 ]]
+-- end --
+
 function uiloader:seekComponents(parent, nodeName, componentIdx)
 	local node = self:seekNodeByName(parent, nodeName)
 	if not node then

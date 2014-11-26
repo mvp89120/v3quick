@@ -12,6 +12,10 @@ function NetworkTestScene:ctor()
         "createHTTPRequest",
         "createHTTPRequestBadDomain",
         "send data to server",
+        "isLocalWiFiAvailable",
+        "isInternetConnectionAvailable",
+        "isHostNameReachable",
+        "getInternetConnectionStatus",
     }
     self:addChild(game.createMenu(items, handler(self, self.runTest)))
 end
@@ -20,17 +24,18 @@ function NetworkTestScene:onResponse(event, index, dumpResponse)
     local request = event.request
     printf("REQUEST %d - event.name = %s", index, event.name)
     if event.name == "completed" then
-        -- printf("REQUEST %d - getResponseStatusCode() = %d", index, request:getResponseStatusCode())
+        printf("REQUEST %d - getResponseStatusCode() = %d", index, request:getResponseStatusCode())
         -- printf("REQUEST %d - getResponseHeadersString() =\n%s", index, request:getResponseHeadersString())
 
         if request:getResponseStatusCode() ~= 200 then
         else
             printf("REQUEST %d - getResponseDataLength() = %d", index, request:getResponseDataLength())
+            print("dump:" .. tostring(dumpResponse))
             if dumpResponse then
                 printf("REQUEST %d - getResponseString() =\n%s", index, request:getResponseString())
             end
         end
-    else
+    elseif event.name ~= "progress" then
         -- printf("REQUEST %d - getErrorCode() = %d, getErrorMessage() = %s", index, request:getErrorCode(), request:getErrorMessage())
         print("ErrorCode:" .. tostring(request:getErrorCode()))
         print("ErrowMsg:" .. tostring(request:getErrorMessage()))
@@ -40,8 +45,7 @@ function NetworkTestScene:onResponse(event, index, dumpResponse)
 end
 
 function NetworkTestScene:createHTTPRequestTest()
-    local url = "http://ww2.sinaimg.cn/bmiddle/67b532d1jw1elat9qc8tuj20dc0hs0v4.jpg"
-    -- url = "http://quick-x.com/feed/"
+    local url = "http://quick-x.com/feed/"
     self.requestCount = self.requestCount + 1
     local index = self.requestCount
     local request = network.createHTTPRequest(function(event)
@@ -72,6 +76,7 @@ end
 
 
 function NetworkTestScene:send_data_to_serverTest()
+print("send data to server")
     self.requestCount = self.requestCount + 1
     local index = self.requestCount
     local request = network.createHTTPRequest(function(event)
@@ -90,6 +95,28 @@ function NetworkTestScene:send_data_to_serverTest()
     request:setCookieString(network.makeCookieString({C1 = "V1", C2 = "V2"}))
     printf("REQUEST START %d", index)
     request:start()
+end
+
+function NetworkTestScene:isLocalWiFiAvailableTest()
+    print("Is local wifi avaibable: ", network.isLocalWiFiAvailable())
+end
+
+function NetworkTestScene:isInternetConnectionAvailableTest()
+    print("Is internet connection avaibable: ", network.isInternetConnectionAvailable())
+end
+
+function NetworkTestScene:isHostNameReachableTest()
+    print("Is www.cocos2d-x.org reachable: ", network.isHostNameReachable("www.cocos2d-x.org"))
+end
+
+function NetworkTestScene:getInternetConnectionStatusTest()
+    local status = {
+        [cc.kCCNetworkStatusNotReachable]     = "无法访问互联网",
+        [cc.kCCNetworkStatusReachableViaWiFi] = "通过 WIFI",
+        [cc.kCCNetworkStatusReachableViaWWAN] = "通过 3G 网络",
+    }
+
+    printf("Internet Connection Status: %s", status[network.getInternetConnectionStatus()])
 end
 
 return NetworkTestScene

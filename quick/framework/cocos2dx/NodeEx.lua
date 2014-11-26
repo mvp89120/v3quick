@@ -291,7 +291,7 @@ function Node:removeNodeEventListener(listener)
             if v.index_==listener then
                 table.remove(liss, i)
                 if #liss==0 then
-                    self.removeNodeEventListenersByEvent(evt)
+                    self:removeNodeEventListenersByEvent(evt)
                 end
                 return
             end
@@ -406,7 +406,8 @@ function Node:EventDispatcher( idx, data )
 
     if flagNodeCleanup then
         obj:setTouchEnabled(false)
-        obj:removeAllNodeEventListeners() 
+        obj:removeAllNodeEventListeners()
+        obj:removeTouchEvent()
         obj:unregisterScriptHandler()
     end
 

@@ -1,13 +1,13 @@
-Title: 在 Code IDE 中调试 quick 工程
 
 在 Code IDE 中调试 quick 工程
 ===========================
 
 > Code IDE 是 cocos2d-x 团队为开发者提供的全功能代码开发环境。
 
-为了支持 quick 工程，请使用 Code IDE 1.0 rc1 或更新版本。
+注意：新版本的 Code IDE 已经能很好的支持 quick 3.3rc1 以上版本的工程，不需要特殊的设置。以下的说明只适用于 Code IDE 1.0 rc1 和 1.0.1 之间的版本。
 
-~
+
+
 
 ## 准备
 
@@ -26,7 +26,7 @@ Title: 在 Code IDE 中调试 quick 工程
 
     ![](res/debug_configs.png)
 
-~
+
 
 ## 从命令行启动 player 进行调试（仅能调试 Lua 代码）
 
@@ -38,7 +38,7 @@ Title: 在 Code IDE 中调试 quick 工程
 -   在 Code IDE 中，设置好 Lua 代码断点
 -   点击 Code IDE 工具栏中的 Debug Remote 按钮开始调试
 
-~
+
 
 ## 配合 Xcode 和 Code IDE 进行 C++ 和 Lua 联调
 
@@ -49,13 +49,13 @@ Title: 在 Code IDE 中调试 quick 工程
 -   选择菜单 Product -> Scheme -> Edit Scheme，打开 Scheme 对话框
 -   从对话框左侧选中 Run，右侧选中 Arguments，然后点击 Arguments Passed On Launch 下的 `+` 按钮，输入以下调试参数：
 
-~~~
+
 
 -debugger-codeide
 -workdir "工程绝对路径"
 -size 960x640
 
-~~~
+
 
 -   如果是竖屏， 修改 -size 参数为 640x960 或需要的值即可。
 
@@ -79,3 +79,8 @@ Title: 在 Code IDE 中调试 quick 工程
     ![](res/win32_set_arguments.png)
 
 -   设置完成后和 Xcode 一样开启调试即可。
+
+## 已知问题
+
+-	目前code IDE还不支持挂在cc下面的外部模块提示,所以quick中framework/cc/下面的都还无法提示
+

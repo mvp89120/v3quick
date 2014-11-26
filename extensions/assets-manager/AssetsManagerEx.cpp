@@ -23,13 +23,21 @@
  ****************************************************************************/
 #include "AssetsManagerEx.h"
 #include "CCEventListenerAssetsManagerEx.h"
-#include "cocos2d.h"
+#include "deprecated/CCString.h"
+#include "base/CCDirector.h"
 
 #include <curl/curl.h>
 #include <curl/easy.h>
 #include <stdio.h>
 
+#ifdef MINIZIP_FROM_SYSTEM
+#include <minizip/unzip.h>
+#else // from our embedded sources
 #include "unzip.h"
+#endif
+
+using namespace cocos2d;
+using namespace std;
 
 NS_CC_EXT_BEGIN
 

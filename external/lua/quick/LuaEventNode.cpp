@@ -93,10 +93,19 @@ LuaEventNode* LuaEventNode::getParent()
 
 bool LuaEventNode::isVisible() const
 {
-    if (_node)
-    {
-        return _node->isVisible();
-    }
+    if (!_node) { return false; }
+    Node *node = _node;
+    do {
+        if (!node) {
+            // here reach the top node
+            return true;
+        }
+        if (!node->isVisible()) {
+            return false;
+        }
+        node = node->getParent();
+    } while (true);
+
     return false;
 }
 
@@ -111,6 +120,7 @@ bool LuaEventNode::isRunning() const
 
 void LuaEventNode::detachNode()
 {
+//    log("---> Detach LuaEventNode %p", this);
     _nodePreuse = _node;
     _node = nullptr;
 }
@@ -252,7 +262,7 @@ bool LuaEventNode::isTouchEnabled()
     return _bTouchEnabled;
 }
 
-void LuaEventNode::setTouchEnabled(bool enabled)
+void LuaEventNode::setLuaTouchEnabled(bool enabled)
 {
     if (_bTouchEnabled != enabled)
     {
@@ -277,8 +287,8 @@ void LuaEventNode::setTouchMode(int mode)
         
 		if( _bTouchEnabled)
         {
-			setTouchEnabled(false);
-			setTouchEnabled(true);
+			setLuaTouchEnabled(false);
+			setLuaTouchEnabled(true);
 		}
     }
 }

@@ -1,9 +1,8 @@
-Title: 升级到 quick-cocos2d-x 最新版
 
 升级到 quick-cocos2d-x 最新版
 ============================
 
-## 从 2.2.5 升级到 3.2
+## 从 2.2.5 升级到 3.3
 
 下列函数或常量需要替换：
 
@@ -22,4 +21,4 @@ Title: 升级到 quick-cocos2d-x 最新版
 | setFlipX()                              | setFlippedX()                |
 | setFlipY()                              | setFlippedY()                |
 
-~
+

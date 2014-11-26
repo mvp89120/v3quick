@@ -23,6 +23,9 @@ THE SOFTWARE.
 
 ]]
 
+--------------------------------
+-- @module UIListView
+
 --[[--
 
 quick 列表控件
@@ -54,6 +57,13 @@ UIListView.ALIGNMENT_TOP			= 3
 UIListView.ALIGNMENT_BOTTOM			= 4
 UIListView.ALIGNMENT_HCENTER		= 5
 
+-- start --
+
+--------------------------------
+-- UIListView构建函数
+-- @function [parent=#UIListView] new
+-- @param table params 参数表
+
 --[[--
 
 UIListView构建函数
@@ -72,10 +82,9 @@ UIListView构建函数
 -   bgScale9 背景图是否可缩放
 -	capInsets 缩放区域
 
-
-@param table params 参数表
-
 ]]
+-- end --
+
 function UIListView:ctor(params)
 	UIListView.super.ctor(self, params)
 
@@ -107,43 +116,46 @@ function UIListView:onCleanup()
 	self:releaseAllFreeItems_()
 end
 
---[[--
+-- start --
 
-列表控件触摸注册函数
+--------------------------------
+-- 列表控件触摸注册函数
+-- @function [parent=#UIListView] onTouch
+-- @param function listener 触摸临听函数
+-- @return UIListView#UIListView  self 自身
 
-@param function listener 触摸临听函数
+-- end --
 
-@return UIListView self 自身
-
-]]
 function UIListView:onTouch(listener)
 	self.touchListener_ = listener
 
 	return self
 end
 
---[[--
+-- start --
 
-列表控件设置所有listItem中content的对齐方式
+--------------------------------
+-- 列表控件设置所有listItem中content的对齐方式
+-- @function [parent=#UIListView] setAlignment
+-- @param number align 对
+-- @return UIListView#UIListView  self 自身
 
-@param number align 对
+-- end --
 
-@return UIListView self 自身
-
-]]
 function UIListView:setAlignment(align)
 	self.alignment = align
 end
 
---[[--
+-- start --
 
-创建一个新的listViewItem项
+--------------------------------
+-- 创建一个新的listViewItem项
+-- @function [parent=#UIListView] newItem
+-- @param node item 要放到listViewItem中的内容content
+-- @return UIListViewItem#UIListViewItem 
 
-@param node item 要放到listViewItem中的内容content
+-- end --
 
-@return UIListViewItem
-
-]]
 function UIListView:newItem(item)
 	item = UIListViewItem.new(item)
 	item:setDirction(self.direction)
@@ -152,13 +164,15 @@ function UIListView:newItem(item)
 	return item
 end
 
---[[--
+-- start --
 
-设置显示区域
+--------------------------------
+-- 设置显示区域
+-- @function [parent=#UIListView] setViewRect
+-- @return UIListView#UIListView  self
 
-@return UIListView self
+-- end --
 
-]]
 function UIListView:setViewRect(viewRect)
 	if UIScrollView.DIRECTION_VERTICAL == self.direction then
 		self.redundancyViewVal = viewRect.height
@@ -259,16 +273,17 @@ function UIListView:scrollListener(event)
 
 end
 
---[[--
+-- start --
 
-在列表项中添加一项
+--------------------------------
+-- 在列表项中添加一项
+-- @function [parent=#UIListView] addItem
+-- @param node listItem 要添加的项
+-- @param [integer pos] 要添加的位置
+-- @return UIListView#UIListView 
 
-@param node listItem 要添加的项
-@param [integer pos] 要添加的位置
+-- end --
 
-@return UIListView
-
-]]
 function UIListView:addItem(listItem, pos)
 	self:modifyItemSizeIf_(listItem)
 
@@ -282,16 +297,17 @@ function UIListView:addItem(listItem, pos)
 	return self
 end
 
---[[--
+-- start --
 
-在列表项中移除一项
+--------------------------------
+-- 在列表项中移除一项
+-- @function [parent=#UIListView] removeItem
+-- @param node listItem 要移除的项
+-- @param [boolean bAni] 是否要显示移除动画
+-- @return UIListView#UIListView 
 
-@param node listItem 要移除的项
-@param [boolean bAni] 是否要显示移除动画
+-- end --
 
-@return UIListView
-
-]]
 function UIListView:removeItem(listItem, bAni)
 	assert(not self.bAsyncLoad, "UIListView:removeItem() - syncload not support remove")
 
@@ -320,29 +336,32 @@ function UIListView:removeItem(listItem, bAni)
 	return self
 end
 
---[[--
+-- start --
 
-移除所有的项
+--------------------------------
+-- 移除所有的项
+-- @function [parent=#UIListView] removeAllItems
+-- @return integer#integer 
 
-@return integer
+-- end --
 
-]]
 function UIListView:removeAllItems()
-	self.container:removeAllChildren()
+    self.container:removeAllChildren()
     self.items_ = {}
 
     return self
 end
 
---[[--
+-- start --
 
-取某项在列表控件中的位置
+--------------------------------
+-- 取某项在列表控件中的位置
+-- @function [parent=#UIListView] getItemPos
+-- @param node listItem 列表项
+-- @return integer#integer 
 
-@param node listItem 列表项
+-- end --
 
-@return integer
-
-]]
 function UIListView:getItemPos(listItem)
 	for i,v in ipairs(self.items_) do
 		if v == listItem then
@@ -351,15 +370,16 @@ function UIListView:getItemPos(listItem)
 	end
 end
 
---[[--
+-- start --
 
-判断某项是否在列表控件的显示区域中
+--------------------------------
+-- 判断某项是否在列表控件的显示区域中
+-- @function [parent=#UIListView] isItemInViewRect
+-- @param integer pos 列表项位置
+-- @return boolean#boolean 
 
-@param integer pos 列表项位置
+-- end --
 
-@return boolean
-
-]]
 function UIListView:isItemInViewRect(pos)
 	local item
 	if "number" == type(pos) then
@@ -381,13 +401,15 @@ function UIListView:isItemInViewRect(pos)
 	return cc.rectIntersectsRect(self.viewRect_, bound)
 end
 
---[[--
+-- start --
 
-加载列表
+--------------------------------
+-- 加载列表
+-- @function [parent=#UIListView] reload
+-- @return UIListView#UIListView 
 
-@return UIListView
+-- end --
 
-]]
 function UIListView:reload()
 	if self.bAsyncLoad then
 		self:asyncLoad_()
@@ -398,15 +420,16 @@ function UIListView:reload()
 	return self
 end
 
---[[--
+-- start --
 
-取一个空闲项出来,如果没有返回空
+--------------------------------
+-- 取一个空闲项出来,如果没有返回空
+-- @function [parent=#UIListView] dequeueItem
+-- @return UIListViewItem#UIListViewItem  item
+-- @see UIListViewItem
 
-@return UIListViewItem item
+-- end --
 
-@see UIListViewItem
-
-]]
 function UIListView:dequeueItem()
 	if #self.itemsFree_ < 1 then
 		return
@@ -859,13 +882,15 @@ function UIListView:asyncLoad_()
 	return self
 end
 
---[[--
+-- start --
 
-设置delegate函数
+--------------------------------
+-- 设置delegate函数
+-- @function [parent=#UIListView] setDelegate
+-- @return UIListView#UIListView 
 
-@return UIListView
+-- end --
 
-]]
 function UIListView:setDelegate(delegate)
 	self.delegate_[UIListView.DELEGATE] = delegate
 end

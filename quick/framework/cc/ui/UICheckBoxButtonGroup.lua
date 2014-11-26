@@ -23,6 +23,9 @@ THE SOFTWARE.
 
 ]]
 
+--------------------------------
+-- @module UICheckBoxButtonGroup
+
 --[[--
 
 quick CheckButton组控件
@@ -37,13 +40,15 @@ local UICheckBoxButtonGroup = class("UICheckBoxButtonGroup", UIGroup)
 
 UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED = "BUTTON_SELECT_CHANGED"
 
---[[--
+-- start --
 
-UICheckBoxButtonGroup构建函数
+--------------------------------
+-- UICheckBoxButtonGroup构建函数
+-- @function [parent=#UICheckBoxButtonGroup] new
+-- @param integer direction checkBox排列方向
 
-@param integer direction checkBox排列方向
+-- end --
 
-]]
 function UICheckBoxButtonGroup:ctor(direction)
     UICheckBoxButtonGroup.super.ctor(self)
     self:setLayout(UIBoxLayout.new(direction or display.LEFT_TO_RIGHT))
@@ -51,17 +56,17 @@ function UICheckBoxButtonGroup:ctor(direction)
     self.currentSelectedIndex_ = 0
 end
 
---[[--
+-- start --
 
-加入一个checkBox
+--------------------------------
+-- 加入一个checkBox
+-- @function [parent=#UICheckBoxButtonGroup] addButton
+-- @param UICheckBoxButton button checkBox
+-- @return UICheckBoxButtonGroup#UICheckBoxButtonGroup  自身
+-- @see UICheckBoxButton
 
-@param UICheckBoxButton button checkBox
+-- end --
 
-@return UICheckBoxButtonGroup 自身
-
-@see UICheckBoxButton
-
-]]
 function UICheckBoxButtonGroup:addButton(button)
     self:addChild(button)
     self.buttons_[#self.buttons_ + 1] = button
@@ -71,15 +76,16 @@ function UICheckBoxButtonGroup:addButton(button)
     return self
 end
 
---[[--
+-- start --
 
-按index移除掉一个checkBox
+--------------------------------
+-- 按index移除掉一个checkBox
+-- @function [parent=#UICheckBoxButtonGroup] removeButtonAtIndex
+-- @param integer index 要移除checkBox的位置
+-- @return UICheckBoxButtonGroup#UICheckBoxButtonGroup  自身
 
-@param integer index 要移除checkBox的位置
+-- end --
 
-@return UICheckBoxButtonGroup 自身
-
-]]
 function UICheckBoxButtonGroup:removeButtonAtIndex(index)
     assert(self.buttons_[index] ~= nil, "UICheckBoxButtonGroup:removeButtonAtIndex() - invalid index")
 
@@ -100,42 +106,46 @@ function UICheckBoxButtonGroup:removeButtonAtIndex(index)
     return self
 end
 
---[[--
+-- start --
 
-按index获取checkBox
+--------------------------------
+-- 按index获取checkBox
+-- @function [parent=#UICheckBoxButtonGroup] getButtonAtIndex
+-- @param integer index 要获取checkBox的位置
+-- @return UICheckBoxButton#UICheckBoxButton 
 
-@param integer index 要获取checkBox的位置
+-- end --
 
-@return UICheckBoxButton
-
-]]
 function UICheckBoxButtonGroup:getButtonAtIndex(index)
     return self.buttons_[index]
 end
 
---[[--
+-- start --
 
-得到UICheckBoxButton的总数
+--------------------------------
+-- 得到UICheckBoxButton的总数
+-- @function [parent=#UICheckBoxButtonGroup] getButtonsCount
+-- @return integer#integer 
 
-@return integer
+-- end --
 
-]]
 function UICheckBoxButtonGroup:getButtonsCount()
     return #self.buttons_
 end
 
---[[--
+-- start --
 
-设置margin
+--------------------------------
+-- 设置margin
+-- @function [parent=#UICheckBoxButtonGroup] setButtonsLayoutMargin
+-- @param number top 上边的空白
+-- @param number right 右边的空白
+-- @param number bottom 下边的空白
+-- @param number left 左边的空白
+-- @return UICheckBoxButtonGroup#UICheckBoxButtonGroup  自身
 
-@param number top 上边的空白
-@param number right 右边的空白
-@param number bottom 下边的空白
-@param number left 左边的空白
+-- end --
 
-@return UICheckBoxButtonGroup 自身
-
-]]
 function UICheckBoxButtonGroup:setButtonsLayoutMargin(top, right, bottom, left)
     for _, button in ipairs(self.buttons_) do
         button:setLayoutMargin(top, right, bottom, left)
@@ -148,15 +158,16 @@ function UICheckBoxButtonGroup:addButtonSelectChangedEventListener(callback)
     return self:addEventListener(UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, callback)
 end
 
---[[--
+-- start --
 
-注册checkbox状态变化listener
+--------------------------------
+-- 注册checkbox状态变化listener
+-- @function [parent=#UICheckBoxButtonGroup] onButtonSelectChanged
+-- @param function callback
+-- @return UICheckBoxButtonGroup#UICheckBoxButtonGroup  自身
 
-@param function callback
+-- end --
 
-@return UICheckBoxButtonGroup 自身
-
-]]
 function UICheckBoxButtonGroup:onButtonSelectChanged(callback)
     self:addButtonSelectChangedEventListener(callback)
     return self

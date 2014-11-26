@@ -37,6 +37,10 @@ function BuildProjectUI:createUI()
 		off = "RadioButtonOff.png",
 		on = "RadioButtonOn.png"
 	}
+	local checkboxImages = {
+	    off = "CheckBoxButton2Off.png",
+	    on = "CheckBoxButton2On.png",
+	}
 
 	posY = posY - 30
     self:addLabel("Project path:", posX, posY)
@@ -46,7 +50,6 @@ function BuildProjectUI:createUI()
     	self:openFileDialog(self.projDirTF_)
     	end)
     self.projDirTF_:setText(self.cmdArgs_.projDir)
-
 
     posY = posY - 50
     local group = cc.ui.UICheckBoxButtonGroup.new(display.LEFT_TO_RIGHT)
@@ -77,6 +80,22 @@ function BuildProjectUI:createUI()
         :addTo(self)
     group:getButtonAtIndex(1):setButtonSelected(true)
 
+    cc.ui.UICheckBoxButton.new(checkboxImages, {scale9 = true})
+    	:setButtonSize(36, 36)
+        :setButtonLabel(cc.ui.UILabel.new({text = "Release", color = display.COLOR_BLACK}))
+        :setButtonLabelOffset(25, 0)
+        :setButtonLabelAlignment(display.LEFT_CENTER)
+        :align(display.LEFT_BOTTOM, display.right - 400, posY)
+        :setButtonSelected(false)
+        :addTo(self)
+        :onButtonStateChanged(function(event)
+        	if "on" == event.state then
+        		self.cmdArgs_.bRelease = true
+        	elseif "off" == event.state then
+        		self.cmdArgs_.bRelease = false
+        	end
+        	end)
+
     posY = posY - 30
     self.buildAPKPanel_ = self:addAndroidArgs()
     self.buildAPKPanel_:setPosition(posX, posY)
@@ -85,6 +104,11 @@ function BuildProjectUI:createUI()
 	-- back button
 	self:addButton("Back", display.left + 20, 10, function(event)
 		self:removeFromParent(true)
+    	end)
+
+	-- clear button
+	self.compileBtn = self:addButton("Clear", display.right - 370, 10, function(event)
+		self:runClear()
     	end)
 
 	-- compile button
@@ -268,6 +292,10 @@ function BuildProjectUI:getCommandString()
 	insertValTotable(cmds, "-api ", self.androidAPITF_:getText())
 	insertValTotable(cmds, "-jv ", self.javaSDKVerTF_:getText())
 
+	if not self.cmdArgs_.buildNative and self.cmdArgs_.bRelease then
+		table.insert(cmds, "-bldm release")
+	end
+
 	return table.concat(cmds, " ")
 end
 
@@ -277,11 +305,19 @@ function BuildProjectUI:runCompile()
 
 	local scriptPath
 	if self.cmdArgs_.buildNative then
-		if device.platform == "windows" then
-        	scriptPath = projDir .. "build_native.bat"
-        else
-        	scriptPath = projDir .. "build_native.sh"
-    	end
+		if self.cmdArgs_.bRelease then
+			if device.platform == "windows" then
+	        	scriptPath = projDir .. "build_native_release.bat"
+	        else
+	        	scriptPath = projDir .. "build_native_release.sh"
+	    	end
+		else
+			if device.platform == "windows" then
+	        	scriptPath = projDir .. "build_native.bat"
+	        else
+	        	scriptPath = projDir .. "build_native.sh"
+	    	end
+	    end
     	strCmd = ""
 	else
 		if device.platform == "windows" then
@@ -292,6 +328,22 @@ function BuildProjectUI:runCompile()
 	end
 
 	print("Create Cmd:" .. scriptPath .. " " .. strCmd)
+	local taskId = tostring(os.time())
+    local task = PlayerProtocol:getInstance():getTaskService():createTask(taskId, scriptPath, strCmd)
+    task:runInTerminal()
+end
+
+function BuildProjectUI:runClear()
+	local scriptPath
+    local strCmd = ""
+    local projDir = self:addSymbolForPath(self.projDirTF_:getText())
+
+	if device.platform == "windows" then
+    	scriptPath = projDir .. "clean.bat"
+    else
+    	scriptPath = projDir .. "clean.sh"
+	end
+
 	local taskId = tostring(os.time())
     local task = PlayerProtocol:getInstance():getTaskService():createTask(taskId, scriptPath, strCmd)
     task:runInTerminal()

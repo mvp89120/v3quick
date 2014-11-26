@@ -7,19 +7,13 @@ LOCAL_MODULE := cocos2dlua_shared
 LOCAL_MODULE_FILENAME := libcocos2dlua
 
 LOCAL_SRC_FILES := hellolua/main.cpp \
+../../Classes/VisibleRect.cpp \
+../../Classes/AppDelegate.cpp \
+../../Classes/ConfigParser.cpp
+
+ifeq ($(NDK_DEBUG),1)
+LOCAL_SRC_FILES += \
 hellolua/Runtime_android.cpp \
-../../Classes/protobuf-lite/google/protobuf/io/coded_stream.cc \
-../../Classes/protobuf-lite/google/protobuf/stubs/common.cc \
-../../Classes/protobuf-lite/google/protobuf/extension_set.cc \
-../../Classes/protobuf-lite/google/protobuf/generated_message_util.cc \
-../../Classes/protobuf-lite/google/protobuf/message_lite.cc \
-../../Classes/protobuf-lite/google/protobuf/stubs/once.cc \
-../../Classes/protobuf-lite/google/protobuf/stubs/atomicops_internals_x86_gcc.cc \
-../../Classes/protobuf-lite/google/protobuf/repeated_field.cc \
-../../Classes/protobuf-lite/google/protobuf/wire_format_lite.cc \
-../../Classes/protobuf-lite/google/protobuf/io/zero_copy_stream.cc \
-../../Classes/protobuf-lite/google/protobuf/io/zero_copy_stream_impl_lite.cc \
-../../Classes/protobuf-lite/google/protobuf/stubs/stringprintf.cc \
 ../../Classes/runtime/Landscape_png.cpp \
 ../../Classes/runtime/PlayDisable_png.cpp \
 ../../Classes/runtime/PlayEnable_png.cpp \
@@ -27,11 +21,8 @@ hellolua/Runtime_android.cpp \
 ../../Classes/runtime/Shine_png.cpp \
 ../../Classes/runtime/Runtime.cpp \
 ../../Classes/runtime/Protos.pb.cc \
-../../Classes/runtime/lua_debugger.c \
-../../Classes/VisibleRect.cpp \
-../../Classes/AppDelegate.cpp \
-../../Classes/ConfigParser.cpp
-
+../../Classes/runtime/lua_debugger.c
+endif
 
 LOCAL_C_INCLUDES := \
 $(LOCAL_PATH)/../../Classes/protobuf-lite \
@@ -44,6 +35,7 @@ $(LOCAL_PATH)/../../Classes/quick-src/extra
 LOCAL_STATIC_LIBRARIES := cocos2d_lua_static
 LOCAL_STATIC_LIBRARIES += lua_extensions_static
 LOCAL_STATIC_LIBRARIES += extra_static
+LOCAL_STATIC_LIBRARIES += cocos_protobuf-lite_static
 
 include $(BUILD_SHARED_LIBRARY)
 

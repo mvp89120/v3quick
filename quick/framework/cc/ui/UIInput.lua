@@ -23,6 +23,9 @@ THE SOFTWARE.
 
 ]]
 
+--------------------------------
+-- @module UIInput
+
 --[[--
 
 quick 输入控件
@@ -45,6 +48,14 @@ UIInput = class("UIInput", function(options)
     return inputLabel
 end)
 
+-- start --
+
+--------------------------------
+-- 输入构建函数
+-- @function [parent=#UIInput] new
+-- @param table params 参数表格对象
+-- @return mixed#mixed  editbox/textfield文字输入框
+
 --[[--
 
 输入构建函数
@@ -55,11 +66,9 @@ options参灵敏:
 -   UIInputType: 1或nil 表示创建editbox输入控件
 -   UIInputType: 2 表示创建textfield输入控件
 
-@param table params 参数表格对象
-
-@return mixed editbox/textfield文字输入框
-
 ]]
+-- end --
+
 function UIInput:ctor(options)
 
     -- make editbox and textfield have same getText function

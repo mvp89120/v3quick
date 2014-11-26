@@ -23,6 +23,9 @@ THE SOFTWARE.
 
 ]]
 
+--------------------------------
+-- @module UIPushButton
+
 --[[--
 
 quick 按钮控件
@@ -36,6 +39,14 @@ UIPushButton.NORMAL   = "normal"
 UIPushButton.PRESSED  = "pressed"
 UIPushButton.DISABLED = "disabled"
 
+-- start --
+
+--------------------------------
+-- 按钮控件构建函数
+-- @function [parent=#UIPushButton] ctor
+-- @param table images 各种状态的图片
+-- @param table options 参数表 其中scale9为是否缩放
+
 --[[--
 
 按钮控件构建函数
@@ -45,11 +56,9 @@ UIPushButton.DISABLED = "disabled"
 -   pressed 按下状态
 -   disabled 无效状态
 
-
-@param table images 各种状态的图片
-@param table options 参数表 其中scale9为是否缩放
-
 ]]
+-- end --
+
 function UIPushButton:ctor(images, options)
     UIPushButton.super.ctor(self, {
         {name = "disable", from = {"normal", "pressed"}, to = "disabled"},

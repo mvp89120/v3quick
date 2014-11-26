@@ -5,10 +5,17 @@ end)
 
 function MainScene:ctor()
     local items = {
+        "framework.helper",
+        "framework.native",
         "framework.display",
         "framework.crypto",
         "framework.network",
         "framework.luabinding",
+        "framework.event",
+        "framework.interface",
+        "framework.socketTcp",
+        "framework.timer",
+        "framework.function"
     }
 
     self:addChild(game.createMenu(items, handler(self, self.openTest)))
@@ -30,8 +37,7 @@ function MainScene:ctor()
 end
 
 function MainScene:openTest(name)
-    local Scene = require("tests." .. name .. "Test")
-    display.replaceScene(Scene.new())
+    display.replaceScene(require("tests." .. name .. "Test").new(), "random", 1)
 end
 
 function MainScene:onEnter()
