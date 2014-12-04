@@ -6,7 +6,7 @@ DIR="`dirname $DIR`"
 
 QUICK_V3_ROOT=$DIR
 VERSION=`cat $QUICK_V3_ROOT/VERSION`
-DIST_WORKDIR=$QUICK_V3_ROOT/dist_workdir
+DIST_WORKDIR=~/temp/dist_workdir
 WORKDIR=$DIST_WORKDIR/quick-$VERSION
 CERT="CocoaChina (U7E7529TA5)"
 
@@ -38,6 +38,8 @@ GTOOLSPATH="bindings-generator"
 cd "$QUICK_V3_ROOT/../$GTOOLSPATH"
 git archive develop | tar -x -C "$WORKDIR/tools/$GTOOLSPATH"
 rm $WORKDIR/tools/$GTOOLSPATH/libclang/libclang.so
+rm -fr $WORKDIR/tools/$GTOOLSPATH/backup
+rm -fr $WORKDIR/tools/$GTOOLSPATH/targets/spidermonkey
 cd "$QUICK_V3_ROOT"
 
 echo "Copy to windows work dir"
@@ -49,26 +51,34 @@ echo "Clean windows file in work dir"
 rm $WORKDIR/tools/$GTOOLSPATH/libclang/libclang.dll
 rm -fr $WORKDIR/tools/$GTOOLSPATH/tools
 rm -fr $WORKDIR/quick/templates/lua-template-quick/runtime/win32
+rm $WORKDIR/player3.bat
 
 echo "Clean mac&ios file in windows work dir"
 rm $WORKDIR-win/tools/$GTOOLSPATH/libclang/libclang.dylib
 rm -fr $WORKDIR-win/quick/templates/lua-template-quick/runtime/ios
 rm -fr $WORKDIR-win/quick/templates/lua-template-quick/runtime/mac
 
-# cd quick/player/proj.mac
+echo "Compile mac player"
 
-# cp -rf player3.xcodeproj/xcuserdata/USER.xcuserdatad/ player3.xcodeproj/xcuserdata/$USER.xcuserdatad/
-# xcodebuild -configuration Debug \
-#     CODE_SIGN_IDENTITY="Developer ID Application: $CERT" \
-#     QUICK_V3_ROOT="$QUICK_V3_ROOT" \
-#     -workspace player3.xcworkspace \
-#     -scheme player3 \
-#     -archivePath ./build \
-#     archive
+cd quick/player/proj.mac
 
-# mv ./build.xcarchive/Products/Applications/player3.app "$WORKDIR"
-# rm -fr ./build.xcarchive
-cp -rf player3.app "$WORKDIR"
+# cp -rf player3.xcodeproj/USER.xcuserdata/xcuserdatad/ player3.xcodeproj/xcuserdata/$USER.xcuserdatad/
+xcodebuild -configuration Debug \
+    CODE_SIGN_IDENTITY="Developer ID Application: $CERT" \
+    QUICK_V3_ROOT="$QUICK_V3_ROOT" \
+    -workspace player3.xcodeproj/project.xcworkspace \
+    --timestamp=none \
+    -scheme player3 \
+    -archivePath ./build \
+    archive
+
+echo "Copy mac player"
+mv ./build.xcarchive/Products/Applications/player3.app "$WORKDIR"
+rm -fr ./build.xcarchive
+
+echo "Copy win player"
+cd "$QUICK_V3_ROOT"
+cp -rf quick/player/win32 "$WORKDIR-win/quick/player/"
 
 spctl -a -v "$WORKDIR/player3.app/"
 echo ""
@@ -86,31 +96,31 @@ echo ""
 echo "--------------------------"
 echo ""
 
-# SRC_PKG=$DIST_WORKDIR/build/quick-cocos2d-x-$VERSION.mpkg
-# DEST_PKG=$DIST_WORKDIR/build/Install.mpkg
-# if [ -d "$DEST_PKG" ]; then
-# 	rm -fr "$DEST_PKG"
-# fi
-# if [ -f "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg" ]; then
-# 	rm -f "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg"
-# fi
+SRC_PKG=$DIST_WORKDIR/build/quick-cocos2d-x-$VERSION.mpkg
+DEST_PKG=$DIST_WORKDIR/build/Install.mpkg
+if [ -d "$DEST_PKG" ]; then
+	rm -fr "$DEST_PKG"
+fi
+if [ -f "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg" ]; then
+	rm -f "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg"
+fi
 
-# productsign --sign "Developer ID Installer: $CERT" "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg" "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg"
-# echo ""
-# rm "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg"
-# mv "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg" "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg"
-# spctl -a -v --type install "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg"
-# echo ""
-# echo "quickcocos2dx.pkg accepted"
-# echo "source=Developer ID"
-# echo "override=security disabled"
-# echo ""
-# echo "--------------------------"
-# echo ""
+productsign --sign "Developer ID Installer: $CERT" "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg" "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg"
+echo ""
+rm "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg"
+mv "$SRC_PKG/Contents/Packages/quickcocos2dx_signed.pkg" "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg"
+spctl -a -v --type install "$SRC_PKG/Contents/Packages/quickcocos2dx.pkg"
+echo ""
+echo "quickcocos2dx.pkg accepted"
+echo "source=Developer ID"
+echo "override=security disabled"
+echo ""
+echo "--------------------------"
+echo ""
 
-# productsign --sign "Developer ID Application: $CERT" "$SRC_PKG" "$DEST_PKG"
-# spctl -a -v --type install "$DEST_PKG"
-# echo ""
-# echo "DONE: Install.mpkg on $DIST_WORKDIR/build/"
-# open "$DIST_WORKDIR/build/"
-# echo ""
+productsign --sign "Developer ID Application: $CERT" "$SRC_PKG" "$DEST_PKG"
+spctl -a -v --type install "$DEST_PKG"
+echo ""
+echo "DONE: Install.mpkg on $DIST_WORKDIR/build/"
+open "$DIST_WORKDIR/build/"
+echo ""

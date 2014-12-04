@@ -315,7 +315,8 @@ class ApkBuilder
         findFiles($projPath . '/src', $files);
         findFiles($projPath . '/gen', $files);
 
-        $cmd_str = 'javac -encoding utf8 -target '. $this->java_version 
+        $cmd_str = 'javac -encoding utf8 -target '. $this->java_version
+            . ' -source ' . $this->java_version
             . ' -bootclasspath ' . $this->boot_class_path 
             . ' -d ' . $classesPath;
         foreach ($files as $file)
@@ -393,6 +394,12 @@ class ApkBuilder
                     . ' ' . $this->keystore_alias;
 
         $retval = $this->exec_sys_cmd($cmd_str);
+
+        if ($this->config['output'])
+        {
+            $cmd_str = 'cp ' . $projPath . '/' . $this->apkFilename . ' ' . $this->config['output'];
+            $this->exec_sys_cmd($cmd_str);
+        }
 
         return $retval;
     }

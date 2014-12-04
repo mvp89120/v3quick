@@ -25,10 +25,9 @@ hellolua/Runtime_android.cpp \
 endif
 
 LOCAL_C_INCLUDES := \
-$(LOCAL_PATH)/../../Classes/protobuf-lite \
 $(LOCAL_PATH)/../../Classes/runtime \
 $(LOCAL_PATH)/../../Classes \
-$(LOCAL_PATH)/../../../cocos2d-x/external \
+$(COCOS2DX_ROOT)/external \
 $(LOCAL_PATH)/../../Classes/quick-src \
 $(LOCAL_PATH)/../../Classes/quick-src/extra
 

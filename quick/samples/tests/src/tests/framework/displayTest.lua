@@ -9,16 +9,17 @@ function DisplayTestScene:ctor()
     local items = {
         "addImageAsync",
         "scale9Sprite",
-        "layerMultiTouch",
         "tilesSprite",
         "tiledBatchNode",
         "drawNode",
-        "progress"
+        "progress",
+        "layerMultiTouch"
     }
     self:addChild(game.createMenu(items, handler(self, self.runTest)))
 
     display.setTexturePixelFormat("Coin0001.png", cc.TEXTURE2D_PIXEL_FORMAT_RGB565)
     display.setTexturePixelFormat("blocks9ss.png", cc.TEXTURE2D_PIXEL_FORMAT_RGB565)
+
 end
 
 function DisplayTestScene:beforeRunTest()
@@ -35,6 +36,16 @@ function DisplayTestScene:beforeRunTest()
     if self.layerTouch then
         self.layerTouch:removeSelf()
         self.layerTouch = nil
+    end
+
+    if self.tilesSprite_ then
+        self.tilesSprite_:removeSelf()
+        self.tilesSprite_ = nil
+    end
+
+    if self.tiledBatchNode_ then
+        self.tiledBatchNode_:removeSelf()
+        self.tiledBatchNode_ = nil
     end
 
     if self.drawNode_ then
@@ -54,7 +65,7 @@ function DisplayTestScene:addImageAsyncTest()
     print("display.addImageAsync(\"Coin0001.png\")")
 
     display.addImageAsync("Coin0001.png", function(event, texture)
-        printf("display.addImageAsync(\"Coin0001.png\") - event = %s, texture = %s", event, tostring(texture))
+        printf("display.addImageAsync(\"Coin0001.png\") - event = %s, texture = %s", tostring(event), tostring(texture))
         self.coin = display.newSprite("Coin0001.png", display.left + 100, display.cy)
         self:addChild(self.coin)
     end)
@@ -94,14 +105,14 @@ function DisplayTestScene:layerMultiTouchTest()
 end
 
 function DisplayTestScene:tilesSpriteTest()
-    display.newTilesSprite("close.png", cc.rect(10, 10, 100, 100))
+    self.tilesSprite_ = display.newTilesSprite("close.png", cc.rect(10, 10, 100, 100))
         :pos(display.left + 10, display.bottom + 10)
         :addTo(self)
 end
 
 function DisplayTestScene:tiledBatchNodeTest()
     local cb = function(plist, image)
-        display.newTiledBatchNode("#blocks9.png", "blocks9ss.png", cc.size(170, 170), 10, 10)
+        self.tiledBatchNode_ = display.newTiledBatchNode("#blocks9.png", "blocks9ss.png", cc.size(170, 170), 10, 10)
             :pos(display.left + 10, display.bottom + 150)
             :addTo(self)
     end

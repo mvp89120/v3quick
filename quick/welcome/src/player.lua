@@ -155,7 +155,7 @@ function player:buildUI()
                       {title = "iPhone 4",  w=640,h=960},
                       {title = "iPhone 5",  w=640,h=1136},
                       {title = "iPad",      w=768,h=1024},
-                      {title = "iPad Retina", w=1436,h=2048},
+                      {title = "iPad Retina", w=1536,h=2048},
                       {title = "Android",   w=480,h=800},
                       {title = "Android",   w=480,h=854},
                       {title = "Android",   w=540,h=960},
@@ -182,9 +182,9 @@ function player:buildUI()
 
     -- direction
     menuBar:addItem("DIRECTION_MENU_SEP", "-", "VIEW_MENU")
-    local portait = menuBar:addItem("DIRECTION_PORTAIT_MENU", "Portait", "VIEW_MENU")
-    portait.type  = "portait"
-    if self.projectConfig_:isPortraitFrame() then portait:setChecked(true) end
+    local portrait = menuBar:addItem("DIRECTION_PORTRAIT_MENU", "Portrait", "VIEW_MENU")
+    portrait.type  = "portrait"
+    if self.projectConfig_:isPortraitFrame() then portrait:setChecked(true) end
 
     local landscape = menuBar:addItem("DIRECTION_LANDSCAPE_MENU", "Landscape", "VIEW_MENU")
     landscape.type  = "landscape"
@@ -279,7 +279,7 @@ end
 function player:onScreenChangeDirection(sender)
     if sender:isChecked() then return end
 
-    if sender.type == "portait" then
+    if sender.type == "portrait" then
         self.projectConfig_:changeFrameOrientationToPortait()
     elseif sender.type == "landscape" then
         self.projectConfig_:changeFrameOrientationToLandscape()

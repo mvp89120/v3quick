@@ -14,23 +14,23 @@ $options = array(
     array('c',   'config',      1,      null,        'load options from config file'),
     array('q',   'quiet',       0,      false,       'quiet'),
     array('t',   'template',    1,      '',          'template dir'),
-    array('e',   'extracmd',    1,      null,        'extra cmd for cocos'),
+    array('lt',  'lite',        0,      false,       'use template-lite'),
 );
 
 $extrawork = array(
     "FilesNeedModify" => array(
-            array(
-                "/cocos/platform/win32/CCFileUtils-win32.cpp",
-                's_resourcePath.append("/");',
-                's_resourcePath.append("/../../");',
-                ),
+            // array(
+            //     "/cocos/platform/win32/CCFileUtils-win32.cpp",
+            //     's_resourcePath.append("/");',
+            //     's_resourcePath.append("/../../");',
+            //     ),
         ),
 
     "FilesNeedReplace" => array(
-            array(
-                'cocos2d.cpp',
-                "/cocos/cocos2d.cpp",
-                ),
+            // array(
+            //     'cocos2d.cpp',
+            //     "/cocos/cocos2d.cpp",
+            //     ),
         ),
 );
 

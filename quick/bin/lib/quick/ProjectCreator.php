@@ -17,8 +17,14 @@ class ProjectCreator
 
     function validateConfig()
     {
+        $isLite = $this->config['lite'];
         // check template
-        $templatePath = rtrim($this->config['template'], "/\\") . DS;
+        $templatePath = rtrim($this->config['template'], "/\\");
+        if ($isLite)
+        {
+            $templatePath = $templatePath . '-lite';
+        }
+        $templatePath = $templatePath . DS;
         if (!is_dir($templatePath))
         {
             printf("ERROR: invalid template path \"%s\"\n", $templatePath);
@@ -216,12 +222,17 @@ class ProjectCreator
             if (!$this->copyFile($sourcePath)) return false;
         }
 
-        $this->copyCocosFiles();
-        $this->copyQuickSources();
+        $this->copyTemplateSharedFiles();
         $this->copyFrameworkFiles();
+        // $this->copyRuntimeSources();
+        if (!$this->config['lite'])
+        {
+            $this->copyCocosFiles();
+            $this->copyQuickSources();
+            $this->fixFiles();
+            $this->replaceFiles();
+        }
         // $this->modifyFiles();
-        $this->fixFiles();
-        $this->replaceFiles();
 
         print("\n\n");
 
@@ -398,7 +409,7 @@ class ProjectCreator
         {
             $src = $quickPath . "/quick/lib/hotfix/" . $file[0];
             $dst = $cocosPath . $file[1];
-            $this->replaceFile($src, $dst, "replace");
+            $this->replaceFile($src, $dst, "replace", false);
 
             printf("OK\n");
         }
@@ -406,8 +417,13 @@ class ProjectCreator
         return true;
     }
 
-    private function replaceFile($src, $dest, $cmd)
+    private function replaceFile($src, $dest, $cmd, $flagCheck)
     {
+        foreach ($this->vars as $key => $value)
+        {
+            $value = str_replace('.', DS, $value);
+            $dest = str_replace($key, $value, $dest);
+        }
         printf($cmd . " file \"%s\" ... ", $dest);
         $destinationDir = pathinfo($dest, PATHINFO_DIRNAME);
 
@@ -428,6 +444,14 @@ class ProjectCreator
             return false;
         }
         $stat = stat($src);
+
+        if ($flagCheck)
+        {
+            foreach ($this->vars as $key => $value)
+            {
+                $contents = str_replace($key, $value, $contents);
+            }
+        }
 
         if (file_put_contents($dest, $contents) == false)
         {
@@ -451,21 +475,44 @@ class ProjectCreator
             $src = $quickPath . "/" . $file;
             if (!file_exists($src)) continue;
             $dst = $cocosPath . "/" . $file;
-            $this->replaceFile($src, $dst, "create");
+            $this->replaceFile($src, $dst, "create", false);
         }
 
         return true;
     }
 
-    private function copyDir($srcPath, $dstPath)
+    private function copyDir($srcPath, $dstPath, $flagCheck)
     {
         $files = array();
         findFiles($srcPath, $files);
         foreach ($files as $src) 
         {
             $dest = str_replace($srcPath, $dstPath, $src);
-            $this->replaceFile($src, $dest, "create");
+            $this->replaceFile($src, $dest, "create", $flagCheck);
         }
+    }
+
+    private function copyTemplateSharedFiles()
+    {
+        $quickPath = $_ENV['QUICK_V3_ROOT'] . "/quick/templates/shared";
+        $cocosPath = $this->config['output'];
+
+        $dirname = "/res";
+        $src = $quickPath . $dirname;
+        $dst = $cocosPath . $dirname;
+        $this->copyDir($src, $dst, true);
+
+        $dirname = "/src";
+        $src = $quickPath . $dirname;
+        $dst = $cocosPath . $dirname;
+        $this->copyDir($src, $dst, true);
+
+        $dirname = "/frameworks";
+        $src = $quickPath . $dirname;
+        $dst = $cocosPath . $dirname;
+        $this->copyDir($src, $dst, true);
+
+        return true;
     }
 
     private function copyFrameworkFiles()
@@ -476,15 +523,28 @@ class ProjectCreator
         $dirname = "/cocos";
         $src = $quickPath . $dirname;
         $dst = $cocosPath . $dirname;
-        $this->copyDir($src, $dst);
+        $this->copyDir($src, $dst, false);
 
         $dirname = "/framework";
         $src = $quickPath . $dirname;
         $dst = $cocosPath . $dirname;
-        $this->copyDir($src, $dst);
+        $this->copyDir($src, $dst, false);
 
         return true;
     }
+
+    // private function copyRuntimeSources()
+    // {
+    //     $quickSrcPath = $_ENV['QUICK_V3_ROOT'] . "/quick/lib/runtime-src";
+    //     $cocosPath = $this->config['output'] . "/frameworks/runtime-src";
+
+    //     $dirname = "/Classes";
+    //     $src = $quickSrcPath . $dirname;
+    //     $dst = $cocosPath . $dirname;
+    //     $this->copyDir($src, $dst, false);
+
+    //     return true;
+    // }
 
     private function copyQuickSources()
     {
