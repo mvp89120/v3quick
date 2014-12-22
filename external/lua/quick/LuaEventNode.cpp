@@ -259,7 +259,7 @@ void LuaEventNode::ccTouchesCaptureRemoved(const std::vector<Touch*>& touches, L
 
 bool LuaEventNode::isTouchEnabled()
 {
-    return _bTouchEnabled;
+    return (_node!=nullptr) && _bTouchEnabled;
 }
 
 void LuaEventNode::setLuaTouchEnabled(bool enabled)

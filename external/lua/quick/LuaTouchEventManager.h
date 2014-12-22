@@ -91,7 +91,9 @@ protected:
     void disableTouchDispatching();
 
     void dispatchingTouchEvent(const std::vector<Touch*>& touches, Event *pEvent, int event);
+    void dispatchingTouchEventReal(const std::vector<Touch*>& touches, Event *pEvent, int event);
     
+	void cleanDisabledNode();
 
 
     /** Walks though scene graph to get the draw order for each node, it's called before sorting event listener with scene graph priority */
@@ -107,6 +109,8 @@ protected:
     std::unordered_map<float, std::vector<Node*>> _globalZOrderNodeMap;
 
     int _nodePriorityIndex;
+
+	bool _bDispatching;
 };
 
 // end of LuaTouchEventManager group

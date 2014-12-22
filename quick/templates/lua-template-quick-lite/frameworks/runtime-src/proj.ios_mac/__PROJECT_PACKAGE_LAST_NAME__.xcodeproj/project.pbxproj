@@ -19,6 +19,16 @@
 		3EB5152C19528284006966AA /* Protos.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5152A19528284006966AA /* Protos.pb.cc */; };
 		3EB5152D19528284006966AA /* Protos.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5152A19528284006966AA /* Protos.pb.cc */; };
 		3EEEDB61197107C0006A9FF8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEEDB60197107C0006A9FF8 /* MediaPlayer.framework */; };
+		49C656541A39A1A200603AF5 /* NVGDrawNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C656481A39A1A200603AF5 /* NVGDrawNode.cpp */; };
+		49C656551A39A1A200603AF5 /* NVGDrawNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C656481A39A1A200603AF5 /* NVGDrawNode.cpp */; };
+		49C656561A39A1A200603AF5 /* NVGNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C6564A1A39A1A200603AF5 /* NVGNode.cpp */; };
+		49C656571A39A1A200603AF5 /* NVGNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C6564A1A39A1A200603AF5 /* NVGNode.cpp */; };
+		49C656581A39A1A200603AF5 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 49C6564E1A39A1A200603AF5 /* nanovg.c */; };
+		49C656591A39A1A200603AF5 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 49C6564E1A39A1A200603AF5 /* nanovg.c */; };
+		49C6565E1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C6565A1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp */; };
+		49C6565F1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C6565A1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp */; };
+		49C656601A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C6565C1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp */; };
+		49C656611A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C6565C1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; };
 		5023811917EBBCAC00990C9B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810917EBBCAC00990C9B /* Default-568h@2x.png */; };
 		5023811A17EBBCAC00990C9B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 5023810A17EBBCAC00990C9B /* Default.png */; };
@@ -52,6 +62,11 @@
 		50D7C97017EBBEEC005D0B91 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96F17EBBEEC005D0B91 /* IOKit.framework */; };
 		521A8E7019F0C3D200D177D7 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6E19F0C3D200D177D7 /* Default-667h@2x.png */; };
 		521A8E7119F0C3D200D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6F19F0C3D200D177D7 /* Default-736h@3x.png */; };
+		87BA718B1A44A57100929C43 /* FileServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB6F01A1F275E009C2562 /* FileServer.cpp */; };
+		87BA718C1A44A57100929C43 /* FileServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB6F01A1F275E009C2562 /* FileServer.cpp */; };
+		87BA718F1A44A5BF00929C43 /* ConnectWaitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB6EC1A1F275E009C2562 /* ConnectWaitLayer.cpp */; };
+		87BA71901A44A5CA00929C43 /* ConsoleCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB6EE1A1F275E009C2562 /* ConsoleCommand.cpp */; };
+		87BA71911A44A5CB00929C43 /* ConsoleCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB6EE1A1F275E009C2562 /* ConsoleCommand.cpp */; };
 		9F598A0819F5F3A6006015D6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F598A0719F5F3A6006015D6 /* SystemConfiguration.framework */; };
 		9F598A0B19F5F4F4006015D6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F598A0A19F5F4F4006015D6 /* StoreKit.framework */; };
 		9F9106B419F5614900AD5CAB /* libbase64.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9105AC19F5614800AD5CAB /* libbase64.c */; };
@@ -164,6 +179,7 @@
 		9F91079719F56A6600AD5CAB /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F91079219F56A6600AD5CAB /* SimulatorConfig.cpp */; };
 		9F91079E19F5704400AD5CAB /* ConsoleWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F91079B19F5704400AD5CAB /* ConsoleWindow.xib */; };
 		9F91079F19F5704400AD5CAB /* ConsoleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F91079D19F5704400AD5CAB /* ConsoleWindowController.m */; };
+		AB6CB6F31A1F275E009C2562 /* ConnectWaitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB6CB6EC1A1F275E009C2562 /* ConnectWaitLayer.cpp */; };
 		C00FD4921938512100C6382D /* Landscape_png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C00FD48A1938512100C6382D /* Landscape_png.cpp */; };
 		C00FD4931938512100C6382D /* Landscape_png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C00FD48A1938512100C6382D /* Landscape_png.cpp */; };
 		C00FD4941938512100C6382D /* PlayDisable_png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C00FD48B1938512100C6382D /* PlayDisable_png.cpp */; };
@@ -272,6 +288,21 @@
 		3EB5152A19528284006966AA /* Protos.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Protos.pb.cc; sourceTree = "<group>"; };
 		3EB5152B19528284006966AA /* Protos.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protos.pb.h; sourceTree = "<group>"; };
 		3EEEDB60197107C0006A9FF8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		49C656481A39A1A200603AF5 /* NVGDrawNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NVGDrawNode.cpp; sourceTree = "<group>"; };
+		49C656491A39A1A200603AF5 /* NVGDrawNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVGDrawNode.h; sourceTree = "<group>"; };
+		49C6564A1A39A1A200603AF5 /* NVGNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NVGNode.cpp; sourceTree = "<group>"; };
+		49C6564B1A39A1A200603AF5 /* NVGNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVGNode.h; sourceTree = "<group>"; };
+		49C6564D1A39A1A200603AF5 /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontstash.h; sourceTree = "<group>"; };
+		49C6564E1A39A1A200603AF5 /* nanovg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nanovg.c; sourceTree = "<group>"; };
+		49C6564F1A39A1A200603AF5 /* nanovg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nanovg.h; sourceTree = "<group>"; };
+		49C656501A39A1A200603AF5 /* nanovg_gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nanovg_gl.h; sourceTree = "<group>"; };
+		49C656511A39A1A200603AF5 /* nanovg_gl_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nanovg_gl_utils.h; sourceTree = "<group>"; };
+		49C656521A39A1A200603AF5 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
+		49C656531A39A1A200603AF5 /* stb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_truetype.h; sourceTree = "<group>"; };
+		49C6565A1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lua_cocos2dx_extension_nanovg_auto.cpp; path = "quick/lib/quick-src/extra/luabinding/lua_cocos2dx_extension_nanovg_auto.cpp"; sourceTree = QUICK_V3_ROOT; };
+		49C6565B1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lua_cocos2dx_extension_nanovg_auto.hpp; path = "quick/lib/quick-src/extra/luabinding/lua_cocos2dx_extension_nanovg_auto.hpp"; sourceTree = QUICK_V3_ROOT; };
+		49C6565C1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lua_cocos2dx_extension_nanovg_manual.cpp; path = "quick/lib/quick-src/extra/luabinding/lua_cocos2dx_extension_nanovg_manual.cpp"; sourceTree = QUICK_V3_ROOT; };
+		49C6565D1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = lua_cocos2dx_extension_nanovg_manual.hpp; path = "quick/lib/quick-src/extra/luabinding/lua_cocos2dx_extension_nanovg_manual.hpp"; sourceTree = QUICK_V3_ROOT; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
 		5023810917EBBCAC00990C9B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -490,6 +521,12 @@
 		9F91079B19F5704400AD5CAB /* ConsoleWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsoleWindow.xib; sourceTree = "<group>"; };
 		9F91079C19F5704400AD5CAB /* ConsoleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleWindowController.h; sourceTree = "<group>"; };
 		9F91079D19F5704400AD5CAB /* ConsoleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsoleWindowController.m; sourceTree = "<group>"; };
+		AB6CB6EC1A1F275E009C2562 /* ConnectWaitLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConnectWaitLayer.cpp; sourceTree = "<group>"; };
+		AB6CB6ED1A1F275E009C2562 /* ConnectWaitLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectWaitLayer.h; sourceTree = "<group>"; };
+		AB6CB6EE1A1F275E009C2562 /* ConsoleCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleCommand.cpp; sourceTree = "<group>"; };
+		AB6CB6EF1A1F275E009C2562 /* ConsoleCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleCommand.h; sourceTree = "<group>"; };
+		AB6CB6F01A1F275E009C2562 /* FileServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileServer.cpp; sourceTree = "<group>"; };
+		AB6CB6F11A1F275E009C2562 /* FileServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileServer.h; sourceTree = "<group>"; };
 		C00FD48A1938512100C6382D /* Landscape_png.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Landscape_png.cpp; sourceTree = "<group>"; };
 		C00FD48B1938512100C6382D /* PlayDisable_png.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayDisable_png.cpp; sourceTree = "<group>"; };
 		C00FD48C1938512100C6382D /* PlayEnable_png.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayEnable_png.cpp; sourceTree = "<group>"; };
@@ -580,6 +617,41 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		49C656441A39A1A200603AF5 /* nanovg */ = {
+			isa = PBXGroup;
+			children = (
+				49C656471A39A1A200603AF5 /* nanonode */,
+				49C6564C1A39A1A200603AF5 /* nanovg */,
+			);
+			name = nanovg;
+			path = "quick/lib/quick-src/extra/nanovg";
+			sourceTree = QUICK_V3_ROOT;
+		};
+		49C656471A39A1A200603AF5 /* nanonode */ = {
+			isa = PBXGroup;
+			children = (
+				49C656481A39A1A200603AF5 /* NVGDrawNode.cpp */,
+				49C656491A39A1A200603AF5 /* NVGDrawNode.h */,
+				49C6564A1A39A1A200603AF5 /* NVGNode.cpp */,
+				49C6564B1A39A1A200603AF5 /* NVGNode.h */,
+			);
+			path = nanonode;
+			sourceTree = "<group>";
+		};
+		49C6564C1A39A1A200603AF5 /* nanovg */ = {
+			isa = PBXGroup;
+			children = (
+				49C6564D1A39A1A200603AF5 /* fontstash.h */,
+				49C6564E1A39A1A200603AF5 /* nanovg.c */,
+				49C6564F1A39A1A200603AF5 /* nanovg.h */,
+				49C656501A39A1A200603AF5 /* nanovg_gl.h */,
+				49C656511A39A1A200603AF5 /* nanovg_gl_utils.h */,
+				49C656521A39A1A200603AF5 /* stb_image.h */,
+				49C656531A39A1A200603AF5 /* stb_truetype.h */,
+			);
+			path = nanovg;
+			sourceTree = "<group>";
+		};
 		5023810617EBBCAC00990C9B /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +723,7 @@
 		9F91057519F5614700AD5CAB /* extra */ = {
 			isa = PBXGroup;
 			children = (
+				49C656441A39A1A200603AF5 /* nanovg */,
 				9F9105A619F5614800AD5CAB /* apptools */,
 				9F9105A919F5614800AD5CAB /* cocos2dx_extra.h */,
 				9F9105AA19F5614800AD5CAB /* crypto */,
@@ -831,6 +904,10 @@
 		9F91061719F5614800AD5CAB /* luabinding */ = {
 			isa = PBXGroup;
 			children = (
+				49C6565A1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp */,
+				49C6565B1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.hpp */,
+				49C6565C1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp */,
+				49C6565D1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.hpp */,
 				9F91061A19F5614800AD5CAB /* cocos2dx_extra_ios_iap_luabinding.cpp */,
 				9F91061B19F5614800AD5CAB /* cocos2dx_extra_ios_iap_luabinding.h */,
 				9F91061D19F5614800AD5CAB /* cocos2dx_extra_luabinding.cpp */,
@@ -1042,6 +1119,12 @@
 		C00FD4891938512100C6382D /* runtime */ = {
 			isa = PBXGroup;
 			children = (
+				AB6CB6EC1A1F275E009C2562 /* ConnectWaitLayer.cpp */,
+				AB6CB6ED1A1F275E009C2562 /* ConnectWaitLayer.h */,
+				AB6CB6EE1A1F275E009C2562 /* ConsoleCommand.cpp */,
+				AB6CB6EF1A1F275E009C2562 /* ConsoleCommand.h */,
+				AB6CB6F01A1F275E009C2562 /* FileServer.cpp */,
+				AB6CB6F11A1F275E009C2562 /* FileServer.h */,
 				15AA9646199B6D4600725633 /* lua_debugger.c */,
 				15AA9647199B6D4600725633 /* lua_debugger.h */,
 				3EB5152A19528284006966AA /* Protos.pb.cc */,
@@ -1327,8 +1410,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87BA718C1A44A57100929C43 /* FileServer.cpp in Sources */,
+				AB6CB6F31A1F275E009C2562 /* ConnectWaitLayer.cpp in Sources */,
 				C07828FA18B4D72E00BD2287 /* SimulatorApp.mm in Sources */,
 				5023813317EBBCE400990C9B /* AppDelegate.cpp in Sources */,
+				49C656611A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp in Sources */,
 				C00FD4971938512100C6382D /* PlayEnable_png.cpp in Sources */,
 				9F91079F19F5704400AD5CAB /* ConsoleWindowController.m in Sources */,
 				9F91076F19F5614900AD5CAB /* lua_cjson.c in Sources */,
@@ -1341,6 +1427,7 @@
 				9F91074D19F5614900AD5CAB /* ReachabilityIOSMac.m in Sources */,
 				15AA9649199B6D4600725633 /* lua_debugger.c in Sources */,
 				9F9106D119F5614900AD5CAB /* CCHueFilter.cpp in Sources */,
+				49C656591A39A1A200603AF5 /* nanovg.c in Sources */,
 				9F91076D19F5614900AD5CAB /* fpconv.c in Sources */,
 				9F9106B719F5614900AD5CAB /* CCCrypto.cpp in Sources */,
 				9F91078619F561CD00AD5CAB /* HelperFunc.cpp in Sources */,
@@ -1368,8 +1455,11 @@
 				C00FD49B1938512100C6382D /* Runtime.cpp in Sources */,
 				9F91072319F5614900AD5CAB /* HelperFunc_luabinding.cpp in Sources */,
 				9F91077D19F5614900AD5CAB /* sqlite3.c in Sources */,
+				49C656571A39A1A200603AF5 /* NVGNode.cpp in Sources */,
 				9F91075119F5614900AD5CAB /* CCNative.mm in Sources */,
 				9F9106B519F5614900AD5CAB /* libbase64.c in Sources */,
+				49C6565F1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp in Sources */,
+				49C656551A39A1A200603AF5 /* NVGDrawNode.cpp in Sources */,
 				9F91075319F5614900AD5CAB /* CCNativeMac.mm in Sources */,
 				9F91075519F5614900AD5CAB /* OpenUDIDMac.m in Sources */,
 				9F91072719F5614900AD5CAB /* CCHTTPRequest.cpp in Sources */,
@@ -1393,6 +1483,7 @@
 				9F9106CF19F5614900AD5CAB /* CCHazeFilter.cpp in Sources */,
 				9F9106CB19F5614900AD5CAB /* CCGammaFilter.cpp in Sources */,
 				9F9106DB19F5614900AD5CAB /* CCSharpenFilter.cpp in Sources */,
+				87BA71911A44A5CB00929C43 /* ConsoleCommand.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1407,9 +1498,13 @@
 				9F91073619F5614900AD5CAB /* CCNativeIOS.mm in Sources */,
 				9F91074219F5614900AD5CAB /* SBJsonBase.m in Sources */,
 				9F9106E019F5614900AD5CAB /* ccFilterShaders.cpp in Sources */,
+				87BA718B1A44A57100929C43 /* FileServer.cpp in Sources */,
+				49C656541A39A1A200603AF5 /* NVGDrawNode.cpp in Sources */,
 				9F91078D19F5658D00AD5CAB /* lua_cocos2dx_extension_filter_auto.cpp in Sources */,
 				9F9106D819F5614900AD5CAB /* CCSepiaFilter.cpp in Sources */,
+				49C6565E1A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_auto.cpp in Sources */,
 				9F9106DC19F5614900AD5CAB /* CCTestFilter.cpp in Sources */,
+				49C656601A39A22400603AF5 /* lua_cocos2dx_extension_nanovg_manual.cpp in Sources */,
 				C00FD4981938512100C6382D /* Portrait_png.cpp in Sources */,
 				9F91074A19F5614900AD5CAB /* CCNetworkIOSMac.mm in Sources */,
 				9F91071E19F5614900AD5CAB /* cocos2dx_extra_luabinding.cpp in Sources */,
@@ -1426,6 +1521,7 @@
 				9F91076819F5614900AD5CAB /* CCStoreProduct.cpp in Sources */,
 				C00FD49A1938512100C6382D /* Runtime.cpp in Sources */,
 				9F91072619F5614900AD5CAB /* CCHTTPRequest.cpp in Sources */,
+				87BA71901A44A5CA00929C43 /* ConsoleCommand.cpp in Sources */,
 				9F9106C219F5614900AD5CAB /* CCCustomFilter.cpp in Sources */,
 				9F9106BE19F5614900AD5CAB /* CCBrightnessFilter.cpp in Sources */,
 				9F9106CE19F5614900AD5CAB /* CCHazeFilter.cpp in Sources */,
@@ -1439,6 +1535,8 @@
 				C06C3796191A1D1E00617BED /* ConfigParser.cpp in Sources */,
 				9F9106C019F5614900AD5CAB /* CCContrastFilter.cpp in Sources */,
 				C00FD4961938512100C6382D /* PlayEnable_png.cpp in Sources */,
+				49C656581A39A1A200603AF5 /* nanovg.c in Sources */,
+				49C656561A39A1A200603AF5 /* NVGNode.cpp in Sources */,
 				3EB5152C19528284006966AA /* Protos.pb.cc in Sources */,
 				9F9106D419F5614900AD5CAB /* CCRGBFilter.cpp in Sources */,
 				9F91077019F5614900AD5CAB /* strbuf.c in Sources */,
@@ -1457,6 +1555,7 @@
 				5023812417EBBCAC00990C9B /* main.m in Sources */,
 				9F91072819F5614900AD5CAB /* CCNetwork.cpp in Sources */,
 				9F91078719F561CD00AD5CAB /* HelperFunc.cpp in Sources */,
+				87BA718F1A44A5BF00929C43 /* ConnectWaitLayer.cpp in Sources */,
 				9F91073C19F5614900AD5CAB /* CCStorePaymentTransactionWrapper.mm in Sources */,
 				9F91070E19F5614900AD5CAB /* FilterShaders.cpp in Sources */,
 				9F9106C419F5614900AD5CAB /* CCDropShadowFilter.cpp in Sources */,

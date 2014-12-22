@@ -62,6 +62,7 @@ void LuaTouchEventManager::destroyInstance()
 LuaTouchEventManager::LuaTouchEventManager()
     : m_touchDispatchingEnabled(false)
     , _touchListener(nullptr)
+	, _bDispatching(false)
 {
     _touchableNodes.reserve(100);
     _touchingTargets.reserve(10);
@@ -115,6 +116,10 @@ void LuaTouchEventManager::addTouchableNode(LuaEventNode *node)
 
 void LuaTouchEventManager::removeTouchableNode(LuaEventNode *node)
 {
+	if (_bDispatching) {
+		return;
+	}
+
     _touchableNodes.eraseObject(node);
     auto found = _nodeLuaEventNodeMap.find(node->getDetachedNode());
     if (found != _nodeLuaEventNodeMap.end())
@@ -291,6 +296,24 @@ void LuaTouchEventManager::onTouchesEnded(const std::vector<Touch*>& touches, Ev
     }
 }
 
+void LuaTouchEventManager::cleanDisabledNode()
+{
+	Vector<LuaEventNode*> toErase;
+
+	for (auto it : _touchableNodes)
+	{
+		if (!it->isTouchEnabled())
+		{
+			toErase.pushBack(it);
+		}
+	}
+
+	for (auto it : toErase)
+	{
+		removeTouchableNode(it);
+	}
+}
+
 void LuaTouchEventManager::onTouchesCancelled(const std::vector<Touch*>& touches, Event *event)
 {
     dispatchingTouchEvent(touches, event, CCTOUCHCANCELLED);
@@ -369,6 +392,14 @@ void LuaTouchEventManager::disableTouchDispatching()
 }
 
 void LuaTouchEventManager::dispatchingTouchEvent(const std::vector<Touch*>& touches, Event *pEvent, int event)
+{
+    _bDispatching = true;
+    dispatchingTouchEventReal(touches, pEvent, event);
+    _bDispatching = false;
+    cleanDisabledNode();
+}
+
+void LuaTouchEventManager::dispatchingTouchEventReal(const std::vector<Touch*>& touches, Event *pEvent, int event)
 {
     LuaEventNode *node = nullptr;
     LuaTouchTargetNode *touchTarget = nullptr;
