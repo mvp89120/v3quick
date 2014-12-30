@@ -35,7 +35,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     LPWSTR *szArgList=nullptr;
     int argCount=0;
 
-    bool isCodeIDEDebugger = false;
+    bool isCodeIDEDebugger = true;
     szArgList = CommandLineToArgvW(GetCommandLine(),&argCount);
     if (argCount >=2 )
     {
@@ -84,17 +84,17 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     project.dump();
 
     // set environments
-    //CCLOG("the project directory is: %s", project.getProjectDir().c_str());
-    //if (!project.getProjectDir().empty())
-    //{
-    //    isCodeIDEDebugger = false;
-    //    extern std::string g_projectPath;
-    //    g_projectPath = replaceAll(project.getProjectDir(), "\\", "/");
-    //    auto engine = cocos2d::LuaEngine::getInstance();
-    //    register_runtime_override_function(engine->getLuaStack()->getLuaState());
+    CCLOG("the project directory is: %s", project.getProjectDir().c_str());
+    if (!project.getProjectDir().empty())
+    {
+        isCodeIDEDebugger = false;
+        extern std::string g_projectPath;
+        g_projectPath = replaceAll(project.getProjectDir(), "\\", "/");
+        auto engine = cocos2d::LuaEngine::getInstance();
+        register_runtime_override_function(engine->getLuaStack()->getLuaState());
 
-    //    FileUtils::getInstance()->addSearchPath(g_projectPath);
-    //}
+        FileUtils::getInstance()->addSearchPath(g_projectPath);
+    }
     if (project.getDebuggerType() == kCCLuaDebuggerCodeIDE)
     {
         isCodeIDEDebugger = true;
@@ -107,14 +107,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     // create the application instance
     AppDelegate app;
 
- //   if (isCodeIDEDebugger)
- //   {
- //       app.setLaunchMode(1);
- //   }
-	//else
-	//{
- //       app.setLaunchMode(0);
-	//}
+    if (isCodeIDEDebugger)
+    {
+        app.setLaunchMode(1);
+    }
+	else
+	{
+        app.setLaunchMode(0);
+	}
     int ret = Application::getInstance()->run();
 
 #ifdef USE_WIN32_CONSOLE
